@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <input type="text" id="numCreditos" name="numCreditos" class="form-control" min="1" value="1" required>
                         </div>
-                        <div class="form-group">
+                        <div class="btn">
                             <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                         </div>
 
@@ -33,6 +33,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>codigo</th>
                         <th>nombre</th>
                         <th>creditos</th>
@@ -43,11 +44,12 @@
                 <tbody>
                     {% for c in cursos %}
                     <tr>
+                        <td>{{forloop.counter}}</td>
                         <td>{{c.codigo}}</td>
                         <td>{{c.nombre}}</td>
                         <td>{{c.creditos}}</td>
                         <td><a href="edicionCurso/{{c.codigo}}" class="btn btn-info ">Editar</a></td>
-                        <td><a href="eliminarCurso/{{c.codigo}}" class="btn btn-danger ">Eliminar</a></td>
+                        <td><a href="eliminarCurso/{{c.codigo}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
                     {% endfor %}    
                     </tr>
                 </tbody>
