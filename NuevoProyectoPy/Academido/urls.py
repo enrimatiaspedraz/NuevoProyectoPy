@@ -7,6 +7,12 @@ urlpatterns = [
     path('registrarCurso/', views.registrarCurso),  
     path('edicionCurso/<codigo>', views.edicionCurso),
     path('editarCurso/', views.editarCurso),
-    path('eliminarCurso/<codigo>', views.eliminarCurso)
+    path('eliminarCurso/<codigo>', views.eliminarCurso),
+    path('probando/', views.probando),
+    path('tienda/', views.tienda),
+    path('registrarTurno/', views.registrarTurno),
+    path('eliminarTurno/<id>', views.eliminarTurno),
+    path('edicionTurno/<id>', views.edicionTurno),
+    path('editarTurno/', views.editarTurno),
 ]
 

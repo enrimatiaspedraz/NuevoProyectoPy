@@ -12,3 +12,4 @@ btnEliminacion.forEach(btn=>{
 })
 
 })();
+

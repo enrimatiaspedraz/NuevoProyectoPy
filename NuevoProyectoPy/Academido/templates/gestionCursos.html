@@ -58,5 +58,45 @@
     </div>
 </div>
 
+<section>
+    
+    <div class='col-8'>
+        <h1> PRUEBA </h1>
+        <div class="table responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>nombre</th>
+                        <th>creditos</th>
+                        <th colspan='2'>opciones</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in boton %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.nombre}}</td>
+                        <td>{{i.creditos}}</td>
+                        <td><a href="edicionCurso/{{c.codigo}}" class="btn btn-info ">Editar</a></td>
+                        <td><a href="eliminarCurso/{{c.codigo}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    {% endfor %}    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<form action="./probando/" method="POST">{% csrf_token %}
+<div class="btn">
+    <button type="submit" class="btn btn-primary btn-block text-white">CursoBlack</button>
+</div>
+</form>
+
+
+
 {% endblock  %}
 

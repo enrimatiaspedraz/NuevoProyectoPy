@@ -1,0 +1,152 @@
+{% comment %} <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Fecha y Hora</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #calendar-container {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #calendar {
+            margin-bottom: 20px;
+        }
+        #time-picker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #time-picker label {
+            margin-bottom: 5px;
+        }
+        #submit-btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="select-date-time-btn">Seleccionar Fecha y Hora</button>
+    <div id="calendar-container">
+        <div id="calendar"></div>
+        <div id="time-picker">
+            <label for="time">Seleccione la Hora:</label>
+            <input type="time" id="time">
+        </div>
+        <button id="submit-btn">Confirmar Turno</button>
+    </div>
+    <script>
+        $(function() {
+            $('#select-date-time-btn').on('click', function() {
+                $('#calendar-container').toggle();
+            });
+
+            $('#calendar').datepicker({
+                onSelect: function(dateText) {
+                    $('#calendar-container').data('selected-date', dateText);
+                }
+            });
+
+            $('#submit-btn').on('click', function() {
+                var selectedDate = $('#calendar-container').data('selected-date');
+                var selectedTime = $('#time').val();
+                if (selectedDate && selectedTime) {
+                    alert('Turno confirmado para: ' + selectedDate + ' a las ' + selectedTime);
+                } else {
+                    alert('Por favor, seleccione una fecha y una hora.');
+                }
+            });
+        });
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Turnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Agrega aquí los enlaces a los archivos estáticos necesarios (CSS, JavaScript) -->
+    <script>
+        function mostrarCalendario() {
+            // Aquí puedes usar una librería de calendario como FullCalendar, DatePicker, etc.
+            // Ejemplo básico:
+            var calendario = document.getElementById('calendario');
+            calendario.style.display = 'block';
+        }
+    </script>
+    <style>
+        
+        body {
+            margin-left: 10px;
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="pb-5">Sistema de Turnos</h1>
+    <button class="btn btn-button bg-dark text-white" onclick="mostrarCalendario()">Solicitar turno</button>
+
+    <!-- Calendario (puedes reemplazarlo con la librería que prefieras) -->
+    <div id="calendario" class="py-5" style="display: none;">
+        <!-- Aquí va tu calendario o campos de selección de fecha y hora -->
+        <form action="/registrarTurno/" method="POST"> {% csrf_token %}
+            <label for="id_nombre">Nombre:</label>
+            <input class="btn-button btn border-dark" type="text" id="id_nombre" name="nombre" required><br>
+            <label for="id_fecha">Fecha:</label>
+            <input class="btn-button btn border-dark" type="date" id="id_fecha" name="fecha" required><br>
+            <label for="id_hora">Hora:</label>
+            <input class="btn-button btn border-dark" type="time" id="id_hora" name="hora" required><br>
+            <div class="py-5">
+            <input class="btn btn-button bg-dark text-white" type="submit" value="Guardar turno">
+            </div>
+        </form>
+    </div>
+
+<section>
+    <div class='col-8 py-5'>
+        <h1> Listado de Turnos </h1>
+        <div class="table responsive">
+            <table class="table  table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th colspan='2'>Opciones</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in turnos %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{t.nombre}}</td>
+                        <td>{{t.fecha}}</td>
+                        <td>{{t.hora}}</td>
+                        <td><a href="../edicionTurno/{{t.id}}" class="btn btn-info ">Editar</a></td>
+                        <td><a href="../eliminarTurno/{{t.id}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    {% endfor %}    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
